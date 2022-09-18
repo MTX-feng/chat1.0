@@ -36,32 +36,22 @@ int main(){
     socklen_t addrlen = sizeof(cin);
     printf("UDP server started!\n");
 
-    pid = fork();
-    if(pid == 0)
-    {   
-        while(1)
-        {
-
-        }
-
-    }else{ //父进程接收数据
-        linklist H = linklist_create();
+    linklist H = linklist_create();
         
-        while(1){        
-            recvfrom(fd, &msg, sizeof(msg), 0, (struct sockaddr *)&cin, &addrlen);   
-            /*判断接收到的消息类型*/
-            switch(msg.type)
-            {
-                case 1:
-                    do_login(fd, msg, H, cin);
-                    break;
-                case 2:
-                    do_chat(fd, msg, H, cin);
-                    break;
-                case 3:
-                    do_quit(fd, msg, H, cin);
-                    break;
-            }
+    while(1){        
+        recvfrom(fd, &msg, sizeof(msg), 0, (struct sockaddr *)&cin, &addrlen);   
+        /*判断接收到的消息类型*/
+        switch(msg.type)
+        {
+            case 1:
+                do_login(fd, msg, H, cin);
+                break;
+            case 2:
+                do_chat(fd, msg, H, cin);
+                break;
+            case 3:
+                do_quit(fd, msg, H, cin);
+                break;
         }
     }
     return 0;
